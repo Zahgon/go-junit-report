@@ -3,7 +3,6 @@
 package gtr
 
 import (
-	"strings"
 	"time"
 )
 
@@ -18,20 +17,7 @@ const (
 	Skip
 )
 
-func (r Result) String() string {
-	switch r {
-	case Unknown:
-		return "UNKNOWN"
-	case Pass:
-		return "PASS"
-	case Fail:
-		return "FAIL"
-	case Skip:
-		return "SKIP"
-	default:
-		panic("invalid Result")
-	}
-}
+func (r Result) String() string { _ = "STUB: not implemented"; return "" }
 
 // Report contains the build and test results of a collection of packages.
 type Report struct {
@@ -40,19 +26,7 @@ type Report struct {
 
 // IsSuccessful returns true if none of the packages in this report have build
 // or runtime errors and all tests passed without failures or were skipped.
-func (r *Report) IsSuccessful() bool {
-	for _, pkg := range r.Packages {
-		if pkg.BuildError.Name != "" || pkg.RunError.Name != "" {
-			return false
-		}
-		for _, t := range pkg.Tests {
-			if t.Result != Pass && t.Result != Skip {
-				return false
-			}
-		}
-	}
-	return true
-}
+func (r *Report) IsSuccessful() bool { _ = "STUB: not implemented"; return false }
 
 // Package contains build and test results for a single package.
 type Package struct {
@@ -73,24 +47,15 @@ type Package struct {
 // property with the given key already exists, its old value will be
 // overwritten with the given value.
 func (p *Package) SetProperty(key, value string) {
+	_ = "STUB: not implemented"
 	// TODO(jstemmer): Delete this method in the next major release.
 	// Delete all the properties whose name is the specified key,
 	// then add the specified key-value property.
-	i := 0
-	for _, prop := range p.Properties {
-		if key != prop.Name {
-			p.Properties[i] = prop
-			i++
-		}
-	}
-	p.Properties = p.Properties[:i]
-	p.AddProperty(key, value)
+	return
 }
 
 // AddProperty appends a name/value property in the current package.
-func (p *Package) AddProperty(name, value string) {
-	p.Properties = append(p.Properties, Property{Name: name, Value: value})
-}
+func (p *Package) AddProperty(name, value string) { _ = "STUB: not implemented"; return }
 
 // Property is a name/value property.
 type Property struct {
@@ -109,9 +74,7 @@ type Test struct {
 }
 
 // NewTest creates a new Test with the given id and name.
-func NewTest(id int, name string) Test {
-	return Test{ID: id, Name: name, Data: make(map[string]interface{})}
-}
+func NewTest(id int, name string) Test { _ = "STUB: not implemented"; return *new(Test) }
 
 // Error contains details of a build or runtime error.
 type Error struct {
@@ -129,17 +92,13 @@ type Error struct {
 // test command, without inadvertently trimming whitespace added by the test
 // author.
 func TrimPrefixSpaces(line string, indent int) string {
+	_ = "STUB: not implemented"
 	// We only want to trim the whitespace prefix if it was part of the test
 	// output. Test output is usually prefixed by a series of 4-space indents,
 	// so we'll check for that to decide whether this output was likely to be
 	// from a test.
-	prefixLen := strings.IndexFunc(line, func(r rune) bool { return r != ' ' })
-	if prefixLen%4 == 0 {
-		// Use the subtest level to trim a consistently sized prefix from the
-		// output lines.
-		for i := 0; i <= indent; i++ {
-			line = strings.TrimPrefix(line, "    ")
-		}
-	}
-	return strings.TrimPrefix(line, "\t")
+	return ""
 }
+
+// Use the subtest level to trim a consistently sized prefix from the
+// output lines.

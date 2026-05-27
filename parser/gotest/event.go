@@ -29,9 +29,4 @@ type Event struct {
 	AllocsPerOp int64   `json:"benchmark_allocs_per_op,omitempty"`
 }
 
-func (e *Event) applyMetadata(m *reader.Metadata) {
-	if e == nil || m == nil {
-		return
-	}
-	e.Package = m.Package
-}
+func (e *Event) applyMetadata(m *reader.Metadata) { _ = "STUB: not implemented"; return }

@@ -118,32 +118,10 @@ func main() {
 	}
 }
 
-func exitf(msg string, args ...interface{}) {
-	if msg != "" {
-		fmt.Fprintf(os.Stderr, msg+"\n", args...)
-	}
-	os.Exit(2)
-}
+func exitf(msg string, args ...interface{}) { _ = "STUB: not implemented"; return }
 
 type keyValueFlag map[string]string
 
-func (f *keyValueFlag) String() string {
-	if f != nil {
-		var pairs []string
-		for k, v := range *f {
-			pairs = append(pairs, fmt.Sprintf("%s=%s", k, v))
-		}
-		return strings.Join(pairs, ",")
-	}
-	return ""
-}
+func (f *keyValueFlag) String() string { _ = "STUB: not implemented"; return "" }
 
-func (f *keyValueFlag) Set(value string) error {
-	idx := strings.IndexByte(value, '=')
-	if idx == -1 {
-		return fmt.Errorf("%v is not specified as \"key=value\"", value)
-	}
-	k, v := value[:idx], value[idx+1:]
-	(*f)[k] = v
-	return nil
-}
+func (f *keyValueFlag) Set(value string) error { _ = "STUB: not implemented"; return nil }
